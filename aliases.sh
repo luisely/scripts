@@ -106,18 +106,6 @@ if command -v fastfetch >/dev/null 2>&1; then
     append_alias "alias ff='fastfetch'"
 fi
 
-###############################################################################
-# Zoxide
-###############################################################################
-
-append_alias 'eval "$(zoxide init zsh)"'
-
-###############################################################################
-# FZF
-###############################################################################
-
-append_alias '[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh'
-
 chown "${REAL_USER}:${REAL_USER}" "${ZSHRC}"
 
 echo "Aliases configurados com sucesso."

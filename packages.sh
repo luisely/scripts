@@ -47,7 +47,6 @@ PACKAGES=(
     # Sistema
     ca-certificates
     gnupg
-    software-properties-common
     locales
     tzdata
 

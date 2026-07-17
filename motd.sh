@@ -9,45 +9,9 @@ echo "Configurando MOTD..."
 cat > "${MOTD_FILE}" <<'EOF'
 #!/usr/bin/env bash
 
-HOSTNAME=$(hostname)
-
-IP=$(hostname -I | awk '{print $1}')
-
-KERNEL=$(uname -r)
-
-UPTIME=$(uptime -p | sed 's/up //')
-
-CPU=$(nproc)
-
-MEM_TOTAL=$(free -h | awk '/Mem:/ {print $2}')
-
-MEM_USED=$(free -h | awk '/Mem:/ {print $3}')
-
-DISK=$(df -h / | awk 'NR==2 {print $3 " / " $2}')
-
-LOAD=$(awk '{print $1}' /proc/loadavg)
-
-
-echo
-echo "============================================================"
-echo " Debian Bootstrap"
-echo "============================================================"
-echo
-echo " Host........: ${HOSTNAME}"
-echo " IP..........: ${IP}"
-echo " Kernel......: ${KERNEL}"
-echo " Uptime......: ${UPTIME}"
-echo " CPU.........: ${CPU} vCPU"
-echo " Memory......: ${MEM_USED} / ${MEM_TOTAL}"
-echo " Disk........: ${DISK}"
-echo " Load........: ${LOAD}"
-echo
-echo "============================================================"
-echo
-
-if command -v fastfetch >/dev/null 2>&1; then
-    fastfetch --logo none
-fi
+#if command -v fastfetch >/dev/null 2>&1; then
+#    fastfetch --logo none
+#fi
 EOF
 
 

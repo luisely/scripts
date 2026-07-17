@@ -68,11 +68,14 @@ fi
 
 
 ###############################################################################
-# Configura SSH para mostrar MOTD
+# Configura SSH
 ###############################################################################
 
 SSH_CONFIG="/etc/ssh/sshd_config"
 
+echo "Configurando SSH..."
+
+# MOTD
 if grep -q "^PrintMotd" "${SSH_CONFIG}"; then
     sed -i 's/^PrintMotd.*/PrintMotd yes/' "${SSH_CONFIG}"
 else
@@ -80,8 +83,31 @@ else
 fi
 
 
-systemctl restart ssh 2>/dev/null || true
+# Permitir login SSH como root
+if grep -q "^#PermitRootLogin" "${SSH_CONFIG}"; then
+    sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' "${SSH_CONFIG}"
+elif grep -q "^PermitRootLogin" "${SSH_CONFIG}"; then
+    sed -i 's/^PermitRootLogin.*/PermitRootLogin yes/' "${SSH_CONFIG}"
+else
+    echo "PermitRootLogin yes" >> "${SSH_CONFIG}"
+fi
+
+
+# Permitir autenticação por senha
+if grep -q "^#PasswordAuthentication" "${SSH_CONFIG}"; then
+    sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication yes/' "${SSH_CONFIG}"
+elif grep -q "^PasswordAuthentication" "${SSH_CONFIG}"; then
+    sed -i 's/^PasswordAuthentication.*/PasswordAuthentication yes/' "${SSH_CONFIG}"
+else
+    echo "PasswordAuthentication yes" >> "${SSH_CONFIG}"
+fi
+
+
+systemctl restart ssh 2>/dev/null || systemctl restart sshd 2>/dev/null || true
 
 
 echo
-echo "MOTD configurado com sucesso."
+echo "SSH configurado:"
+echo "- Login root habilitado"
+echo "- Login por senha habilitado"
+echo "- MOTD habilitado"

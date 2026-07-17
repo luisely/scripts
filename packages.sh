@@ -50,9 +50,6 @@ PACKAGES=(
     locales
     tzdata
 
-    # Virtualização
-    qemu-guest-agent
-
     # Build
     build-essential
     pkg-config
@@ -79,13 +76,6 @@ for package in "${PACKAGES[@]}"; do
     fi
 
 done
-
-echo
-
-echo "Habilitando qemu-guest-agent..."
-
-systemctl enable qemu-guest-agent
-systemctl restart qemu-guest-agent
 
 echo
 

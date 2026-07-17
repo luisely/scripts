@@ -27,9 +27,6 @@ run_step "Instalando pacotes" \
 run_step "Configurando locale e timezone" \
     bash "${ROOT_DIR}/locale.sh"
 
-run_step "Configurando Git" \
-    bash "${ROOT_DIR}/git.sh"
-
 run_step "Configurando ZSH" \
     bash "${ROOT_DIR}/zsh.sh"
 
